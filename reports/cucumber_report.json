@@ -1,0 +1,105 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "login-functionality;valid-login",
+        "keyword": "Scenario",
+        "line": 2,
+        "name": "Valid login",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 2278433699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I navigate to the login page",
+            "match": {
+              "location": "steps\\login.steps.js:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3279914099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 4,
+            "name": "I enter valid credentials",
+            "match": {
+              "location": "steps\\login.steps.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 507165399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 5,
+            "name": "I should see the dashboard",
+            "match": {
+              "location": "steps\\login.steps.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 370127999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I click on the \"New Customer\" menu link",
+            "match": {
+              "location": "steps\\home.steps.js:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 376456299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 7,
+            "name": "I should see all menu links listed",
+            "match": {
+              "location": "steps\\home.steps.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 73328900
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 495643799
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "login-functionality",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Login functionality",
+    "tags": [],
+    "uri": "features\\login.feature"
+  }
+]

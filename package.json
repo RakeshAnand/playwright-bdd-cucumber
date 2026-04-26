@@ -1,0 +1,20 @@
+{
+  "name": "playwright-bdd-cucumber",
+  "version": "1.0.0",
+  "description": "Playwright + Cucumber BDD setup with dotenv and HTML reporting",
+  "main": "cucumber.js",
+  "scripts": {
+    "test": "cucumber-js && node reporter.js",
+    "report": "node reporter.js"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.8.1",
+    "chai": "^4.3.7",
+    "cucumber-html-reporter": "^5.0.2",
+    "dotenv": "^16.4.0",
+    "playwright": "^1.59.1",
+    "prettier": "^3.8.3"
+  },
+  "author": "",
+  "license": "ISC"
+}
