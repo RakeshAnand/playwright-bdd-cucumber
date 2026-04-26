@@ -2,6 +2,8 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('chai');
 const LoginPage = require('../pages/LoginPage');
 const HomePage = require('../pages/HomePage');
+const fs = require('fs');
+const path = require('path');
 
 Given('I navigate to the login page', async function () {
   this.loginPage = new LoginPage(this.page);
@@ -19,12 +21,25 @@ Then('I should see the dashboard', async function () {
 });
 
 //  New step to capture screenshot of dashboard
-Then('I take a screenshot of the dashboard', async function () {
-  const screenshotDir = path.join('reports', 'screenshots');
-  if (!fs.existsSync(screenshotDir)) {
-    fs.mkdirSync(screenshotDir, { recursive: true });
+When('I take a screenshot of the dashboard', async function () {
+  // Ensure reports/screenshots exists
+  const dir = path.join(process.cwd(), 'reports', 'screenshots');
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
   }
-  const screenshotPath = path.join(screenshotDir, `DASHBOARD_${Date.now()}.png`);
-  await this.page.screenshot({ path: screenshotPath, fullPage: true });
-  console.log(`Dashboard screenshot saved at: ${screenshotPath}`);
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const fileName = `dashboard-${timestamp}.png`;
+  const filePath = path.join(dir, fileName);
+
+  // Capture screenshot
+  await this.page.screenshot({ path: filePath, fullPage: true });
+
+  // Optionally attach to cucumber report (if your runner supports this.attach)
+  if (this.attach) {
+    const imageBuffer = fs.readFileSync(filePath);
+    await this.attach(imageBuffer, 'image/png');
+  }
+
+  console.log(`Screenshot saved: ${filePath}`);
 });

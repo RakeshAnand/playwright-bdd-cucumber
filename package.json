@@ -4,8 +4,7 @@
   "description": "Playwright + Cucumber BDD setup with dotenv and HTML reporting",
   "main": "cucumber.js",
   "scripts": {
-    "test": "cucumber-js && node reporter.js",
-    "report": "node reporter.js"
+    "test": "cucumber-js --require support --require steps --format json:reports/cucumber_report.json"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^12.8.1",
