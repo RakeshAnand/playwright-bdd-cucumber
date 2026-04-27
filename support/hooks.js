@@ -1,34 +1,46 @@
-const { Before, After,AfterStep  } = require('@cucumber/cucumber');
+// steps/hooks.js
+const { Before, After, AfterStep } = require('@cucumber/cucumber');
 const { chromium } = require('playwright');
-
-let browser, context, page;
+const fs = require('fs');
+const path = require('path');
 
 Before(async function () {
-  browser = await chromium.launch({
+  // Load customer data once per scenario
+  const dataPath = path.join(__dirname, '../test-data/customers.json');
+  this.customers = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+  // Launch browser
+  this.browser = await chromium.launch({
     headless: false,
     args: ['--start-maximized'] // start maximized
   });
-  context = await browser.newContext({
+
+  this.context = await this.browser.newContext({
     viewport: null // use full window size
   });
-  page = await context.newPage();
-  this.browser = browser;
-  this.context = context;
-  this.page = page;
+
+  this.page = await this.context.newPage();
 });
 
 After(async function () {
-  await this.browser.close();
+  if (this.browser) {
+    await this.browser.close();
+  }
 });
 
 // Capture screenshot on failure
 AfterStep(async function ({ result }) {
   if (result.status === 'failed') {
+    const dir = path.join(process.cwd(), 'reports', 'screenshots');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
     const screenshotPath = path.join(
-      'reports',
-      'screenshots',
+      dir,
       `FAILED_${Date.now()}.png`
     );
-    await this.page.screenshot({ path: screenshotPath });
+    await this.page.screenshot({ path: screenshotPath, fullPage: true });
+    console.log(`Screenshot saved: ${screenshotPath}`);
   }
 });
