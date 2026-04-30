@@ -7,10 +7,10 @@
     "test": "cucumber-js --require support --require steps --format json:reports/cucumber_report.json"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^12.8.1",
-    "chai": "^4.3.7",
+    "@cucumber/cucumber": "^12.8.2",
+    "chai": "^6.2.2",
     "cucumber-html-reporter": "^5.0.2",
-    "dotenv": "^16.4.0",
+    "dotenv": "^17.4.2",
     "playwright": "^1.59.1",
     "prettier": "^3.8.3"
   },

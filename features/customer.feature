@@ -14,6 +14,6 @@ Feature: Add New Customer
 
     Examples:
       | customerKey |
-      | customer1   |
-#| customer2   |
+      #| customer1   |
+      | customer2   |
 #| customer3   |

@@ -2,7 +2,7 @@
   "customer1": {
     "name": "John Doe",
     "gender": "male",
-    "dob": "04/27/1985",
+    "dob": "1985-04-27",
     "address": "123 Main Street",
     "city": "Bangalore",
     "state": "Karnataka",
@@ -14,7 +14,7 @@
   "customer2": {
     "name": "Jane Smith",
     "gender": "female",
-    "dob": "05/15/1990",
+    "dob": "1990-05-15",
     "address": "456 Park Avenue",
     "city": "Mumbai",
     "state": "Maharashtra",
@@ -26,7 +26,7 @@
   "customer3": {
     "name": "Ravi Kumar",
     "gender": "male",
-    "dob": "12/01/1982",
+    "dob": "1982-12-01",
     "address": "789 MG Road",
     "city": "Chennai",
     "state": "Tamil Nadu",
