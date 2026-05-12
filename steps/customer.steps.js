@@ -1,17 +1,17 @@
-// customer.steps.js
-const { Given, When, Then } = require('@cucumber/cucumber');
-const { expect } = require('chai');
-const { CustomerPage } = require('../pages/CustomerPage');
+import { createBdd } from 'playwright-bdd';
+import { expect } from '@playwright/test';
+import { CustomerPage } from '../pages/CustomerPage.js';
 
-// Use customers loaded in hooks.js
-// (hooks.js should set this.customers = JSON.parse(...))
+const { Given, When, Then } = createBdd();
 
-Given('I am on the Add New Customer page', async function () {
+// ✅ Added {} as the first argument
+Given('I am on the Add New Customer page', async function ({}) {
   this.customerPage = new CustomerPage(this.page);
   await this.customerPage.goto();
 });
 
-When('I fill in the customer details for {string}', async function (customerKey) {
+// ✅ Added {} as the first argument, customerKey moves to the second slot
+When('I fill in the customer details for {string}', async function ({}, customerKey) {
   const customer = this.customers[customerKey];
   if (!customer) {
     throw new Error(`Customer data not found for key: ${customerKey}`);
@@ -29,11 +29,13 @@ When('I fill in the customer details for {string}', async function (customerKey)
   await this.customerPage.enterPassword(customer.password);
 });
 
-When('I submit the customer form', async function () {
+// ✅ Added {} as the first argument
+When('I submit the customer form', async function ({}) {
   await this.customerPage.submitForm();
 });
 
-Then('the customer should be added successfully', async function () {
-  const successText = await this.page.textContent('table tr td p.heading3');
-  expect(successText).to.include('Customer Registered Successfully');
+// ✅ Added {} as the first argument
+Then('the customer should be added successfully', async function ({}) {
+  const successMessage = this.page.locator('table tr td p.heading3');
+  await expect(successMessage).toContainText('Customer Registered Successfully');
 });

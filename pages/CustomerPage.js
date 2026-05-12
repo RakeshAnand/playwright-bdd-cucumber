@@ -1,5 +1,9 @@
 // CustomerPage.js
-class CustomerPage {
+
+export class CustomerPage {
+  /**
+   * @param {import('@playwright/test').Page} page
+   */
   constructor(page) {
     this.page = page;
 
@@ -19,8 +23,8 @@ class CustomerPage {
   }
 
   async goto() {
-    await this.page.goto(process.env.CUSTOMER_URL || 'https://demo.guru99.com/V4/manager/addcustomerpage.php');
-    await this.page.waitForLoadState('domcontentloaded');
+    const url = process.env.CUSTOMER_URL || 'https://demo.guru99.com/V4/manager/addcustomerpage.php';
+    await this.page.goto(url, { waitUntil: 'domcontentloaded' });
   }
 
   async enterCustomerName(name) {
@@ -28,7 +32,7 @@ class CustomerPage {
   }
 
   async selectGender(gender) {
-    if (gender.toLowerCase() === 'male') {
+    if (gender.toLowerCase() === 'male' || gender.toLowerCase() === 'm') {
       await this.genderMaleRadio.check();
     } else {
       await this.genderFemaleRadio.check();
@@ -36,7 +40,8 @@ class CustomerPage {
   }
 
   async enterDOB(dob) {
-    await this.dobInput.fill(dob); // format: mm/dd/yyyy
+    // Note: Some browsers/sites require the date format yyyy-mm-dd for input[type="date"]
+    await this.dobInput.fill(dob); 
   }
 
   async enterAddress(address) {
@@ -71,5 +76,3 @@ class CustomerPage {
     await this.submitButton.click();
   }
 }
-
-module.exports = { CustomerPage };

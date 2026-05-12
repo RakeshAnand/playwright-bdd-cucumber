@@ -1,19 +1,19 @@
 {
   "name": "playwright-bdd-cucumber",
   "version": "1.0.0",
-  "description": "Playwright + Cucumber BDD setup with dotenv and HTML reporting",
-  "main": "cucumber.js",
+  "description": "Playwright-native BDD setup",
+  "type": "module",
   "scripts": {
-    "test": "cucumber-js --require support --require steps --format json:reports/cucumber_report.json"
+    "bdd": "npx playwright-bdd",
+    "test": "npx playwright-bdd && npx playwright test",
+    "report": "npx playwright show-report"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^12.8.2",
-    "chai": "^6.2.2",
-    "cucumber-html-reporter": "^5.0.2",
-    "dotenv": "^17.4.2",
-    "playwright": "^1.59.1",
-    "prettier": "^3.8.3"
+    "@playwright/test": "^1.60.0",
+    "dotenv": "^16.6.1",
+    "playwright-bdd": "^8.5.1"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@cucumber/cucumber": "^12.8.3"
+  }
 }
