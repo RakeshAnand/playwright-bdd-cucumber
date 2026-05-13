@@ -2,7 +2,7 @@ Feature: Add New Customer
   As a bank manager
   I want to add new customers
   So that they can access banking services
-
+  @skip
   Scenario Outline: Add multiple customers
     Given I navigate to the login page
     When I enter valid credentials

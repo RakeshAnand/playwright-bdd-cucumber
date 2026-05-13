@@ -1,5 +1,5 @@
 Feature: Login functionality
-  @skip
+
   Scenario: Valid login
     Given I navigate to the login page
     When I enter valid credentials

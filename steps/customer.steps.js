@@ -1,41 +1,39 @@
 import { createBdd } from 'playwright-bdd';
-import { expect } from '@playwright/test';
-import { CustomerPage } from '../pages/CustomerPage.js';
+import { test } from '../fixtures/baseTest.js'; // 1. Import your custom test fixture
+import customers from '../data/customers.json' assert { type: 'json' }; // 2. Import your data
 
-const { Given, When, Then } = createBdd();
+const { Given, When, Then } = createBdd(test); // 3. Pass 'test' to createBdd
 
-// ✅ Added {} as the first argument
-Given('I am on the Add New Customer page', async function ({}) {
-  this.customerPage = new CustomerPage(this.page);
-  await this.customerPage.goto();
+Given('I am on the Add New Customer page', async ({ customerPage }) => {
+  // Change "navigateToCustomerPage" to "goto"
+  await customerPage.goto(); 
 });
 
-// ✅ Added {} as the first argument, customerKey moves to the second slot
-When('I fill in the customer details for {string}', async function ({}, customerKey) {
-  const customer = this.customers[customerKey];
+When('I fill in the customer details for {string}', async ({ customerPage }, customerKey) => {
+  const customer = customers[customerKey];
   if (!customer) {
     throw new Error(`Customer data not found for key: ${customerKey}`);
   }
 
-  await this.customerPage.enterCustomerName(customer.name);
-  await this.customerPage.selectGender(customer.gender);
-  await this.customerPage.enterDOB(customer.dob);
-  await this.customerPage.enterAddress(customer.address);
-  await this.customerPage.enterCity(customer.city);
-  await this.customerPage.enterState(customer.state);
-  await this.customerPage.enterPIN(customer.pin);
-  await this.customerPage.enterMobile(customer.mobile);
-  await this.customerPage.enterEmail(customer.email);
-  await this.customerPage.enterPassword(customer.password);
+  // Use the injected customerPage fixture
+  await customerPage.enterCustomerName(customer.name);
+  await customerPage.selectGender(customer.gender);
+  await customerPage.enterDOB(customer.dob);
+  await customerPage.enterAddress(customer.address);
+  await customerPage.enterCity(customer.city);
+  await customerPage.enterState(customer.state);
+  await customerPage.enterPIN(customer.pin);
+  await customerPage.enterMobile(customer.mobile);
+  await customerPage.enterEmail(customer.email);
+  await customerPage.enterPassword(customer.password);
 });
 
-// ✅ Added {} as the first argument
-When('I submit the customer form', async function ({}) {
-  await this.customerPage.submitForm();
+When('I submit the customer form', async ({ customerPage }) => {
+  await customerPage.submitForm();
 });
 
-// ✅ Added {} as the first argument
-Then('the customer should be added successfully', async function ({}) {
-  const successMessage = this.page.locator('table tr td p.heading3');
-  await expect(successMessage).toContainText('Customer Registered Successfully');
+Then('the customer should be added successfully', async ({ page }) => {
+  // Use 'page' fixture directly for assertions if needed
+  const successMessage = page.locator('p.heading3');
+  await expect(successMessage).toContainText('Customer Registered Successfully!!!');
 });

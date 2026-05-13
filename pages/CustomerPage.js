@@ -23,7 +23,7 @@ export class CustomerPage {
   }
 
   async goto() {
-    const url = process.env.CUSTOMER_URL || 'https://demo.guru99.com/V4/manager/addcustomerpage.php';
+    const url = process.env.CUSTOMER_URL;
     await this.page.goto(url, { waitUntil: 'domcontentloaded' });
   }
 

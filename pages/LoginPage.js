@@ -6,19 +6,26 @@ export class LoginPage {
    */
   constructor(page) {
     this.page = page;
-    // Store as Locators instead of just strings
+    // ✅ Excellent: Using Locators allows for auto-waiting and re-selection
     this.usernameInput = page.locator('input[name="uid"]');
     this.passwordInput = page.locator('input[name="password"]');
     this.loginButton = page.locator('input[name="btnLogin"]');
   }
 
   async navigateToLogin() {
-    // Ensure BASE_URL is defined in your .env
-    await this.page.goto(process.env.BASE_URL);
+    // ✅ IMPROVEMENT: Ensure the URL exists and wait for 'domcontentloaded'
+    // This helps prevent tests from starting before the page is ready.
+    const url = process.env.BASE_URL;
+    if (!url) {
+      throw new Error("BASE_URL is not defined in the environment variables.");
+    }
+    await this.page.goto(url, { waitUntil: 'domcontentloaded' });
   }
 
   async login(username, password) {
-    // Locators make the actions more readable
+    // ✅ IMPROVEMENT: Ensure the inputs are ready before typing
+    // Though fill() auto-waits, adding a visibility check is a pro-level safeguard.
+    await this.usernameInput.waitFor({ state: 'visible' });
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
