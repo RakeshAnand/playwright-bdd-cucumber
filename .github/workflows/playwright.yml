@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-24.04
@@ -26,7 +29,7 @@ jobs:
       - name: Security Audit (non-blocking)
         run: |
           npm audit --production --audit-level=moderate || true
-          npm audit --json > audit-report.json
+          npm audit --json > audit-report.json || true
 
       - name: Upload Audit Report
         uses: actions/upload-artifact@v4
@@ -46,3 +49,4 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report
+          if-no-files-found: ignore

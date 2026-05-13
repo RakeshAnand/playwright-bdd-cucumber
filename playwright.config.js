@@ -24,9 +24,10 @@ export default defineConfig({
      for better terminal feedback during execution.
   */
   reporter: [
-    ['html', { open: 'never' }],
-    ['list'] 
-  ],
+  ['html', { outputFolder: 'playwright-report', open: 'never' }],
+  ['list']
+],
+
   use: {
     // This is used by page.goto('/') in your fixtures/pages
     baseURL: process.env.BASE_URL || 'https://www.saucedemo.com',
