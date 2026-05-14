@@ -2,22 +2,20 @@ import { defineConfig } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 import dotenv from 'dotenv';
 
-// Load environment variables
 dotenv.config();
 
-// BDD config
+// Define the BDD configuration
 const bddConfig = defineBddConfig({
   features: 'features/*.feature',
-  steps: ['steps/*.js', 'fixtures/baseTest.js'],
-  // importTestFrom: './fixtures/baseTest.js', // optional explicit import
+  steps: 'steps/*.js',
 });
 
 export default defineConfig({
-  ...bddConfig, // ✅ spread BDD config here
+  // Use the correct variable name here
+  testDir: bddConfig, 
+  
   timeout: 60 * 1000,
-  expect: {
-    timeout: 5000,
-  },
+  expect: { timeout: 5000 },
   fullyParallel: true,
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
@@ -25,10 +23,11 @@ export default defineConfig({
   ],
   use: {
     baseURL: process.env.BASE_URL || 'https://www.saucedemo.com',
+    // CI check for headless mode
     headless: !!process.env.CI,
-    launchOptions: {
-      slowMo: 500,
-      args: ['--start-maximized'],
+    launchOptions: { 
+      slowMo: 500, 
+      args: ['--start-maximized'] 
     },
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
@@ -39,10 +38,9 @@ export default defineConfig({
       name: 'chromium',
       use: {
         browserName: 'chromium',
+        // viewport: null works with --start-maximized to fill the screen
         viewport: null,
-        launchOptions: {
-          args: ['--start-maximized'],
-        },
+        launchOptions: { args: ['--start-maximized'] },
       },
     },
   ],
