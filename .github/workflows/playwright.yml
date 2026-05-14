@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 env:
+  # Opt-in to Node 24 to clear the deprecation warnings in your logs
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -26,21 +27,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Security Audit (non-blocking)
+      - name: Security Audit
+        # We use continue-on-error so that vulnerabilities don't stop the test suite
+        continue-on-error: true
         run: |
-          npm audit --production --audit-level=moderate || true
+          npm audit --omit=dev --audit-level=moderate || true
           npm audit --json > audit-report.json || true
 
       - name: Upload Audit Report
+        # Only upload if the file was actually created
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: audit-report
           path: audit-report.json
+          if-no-files-found: ignore
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
       - name: Run Playwright-BDD Tests
+        # This will now reach this step because Audit won't kill the process
         run: npx playwright test
 
       - name: Upload Playwright Report
@@ -48,5 +55,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report
+          path: playwright-report/
           if-no-files-found: ignore
