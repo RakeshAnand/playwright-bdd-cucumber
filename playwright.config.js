@@ -8,6 +8,8 @@ dotenv.config();
 const bddConfig = defineBddConfig({
   features: 'features/*.feature',
   steps: 'steps/*.js',
+  // 1. Point this to your actual fixtures/baseTest.js file
+  importTestFrom: './fixtures/baseTest.js',
 });
 
 export default defineConfig({
