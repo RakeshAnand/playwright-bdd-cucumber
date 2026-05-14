@@ -31,9 +31,8 @@ export default defineConfig({
   use: {
     // This is used by page.goto('/') in your fixtures/pages
     baseURL: process.env.BASE_URL || 'https://www.saucedemo.com',
-    // ✅ Change this to false to see the browser
-    headless: false, 
-
+    // Automatically sets headless to true if running in CI
+    headless: !!process.env.CI,
     // Optional: Slows down operations by 'X' milliseconds so you can follow along
     launchOptions: {
       slowMo: 500,
