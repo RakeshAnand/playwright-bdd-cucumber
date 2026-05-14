@@ -4,18 +4,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Define the BDD configuration
-const bddConfig = defineBddConfig({
+const testDir = defineBddConfig({
   features: 'features/*.feature',
-  steps: 'steps/*.js',
-  // 1. Point this to your actual fixtures/baseTest.js file
-  importTestFrom: './fixtures/baseTest.js',
+  steps: ['steps/*.js', 'fixtures/*.js'],
 });
 
 export default defineConfig({
-  // Use the correct variable name here
-  testDir: bddConfig, 
-  
+  testDir, // ✅ Use the variable directly here
   timeout: 60 * 1000,
   expect: { timeout: 5000 },
   fullyParallel: true,
@@ -25,7 +20,6 @@ export default defineConfig({
   ],
   use: {
     baseURL: process.env.BASE_URL || 'https://www.saucedemo.com',
-    // CI check for headless mode
     headless: !!process.env.CI,
     launchOptions: { 
       slowMo: 500, 
@@ -40,7 +34,6 @@ export default defineConfig({
       name: 'chromium',
       use: {
         browserName: 'chromium',
-        // viewport: null works with --start-maximized to fill the screen
         viewport: null,
         launchOptions: { args: ['--start-maximized'] },
       },
