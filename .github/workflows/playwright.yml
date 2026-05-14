@@ -47,8 +47,8 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright-BDD Tests
-        # This will now reach this step because Audit won't kill the process
-        run: npx playwright test
+        # Generate BDD test files first, then run Playwright tests
+        run: npx playwright-bdd && npx playwright test
 
       - name: Upload Playwright Report
         if: always()
