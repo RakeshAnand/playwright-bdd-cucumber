@@ -3,6 +3,7 @@ Feature: Add New Customer
   I want to add new customers
   So that they can access banking services
   @skip
+  @smoke
   Scenario Outline: Add multiple customers
     Given I navigate to the login page
     When I enter valid credentials
