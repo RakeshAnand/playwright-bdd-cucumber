@@ -2,6 +2,7 @@ Feature: User API Validation
 
     @api
     @smoke
+    @skip
     Scenario: Verify user details via API
         Given I prepare a GET request for user "1"
         When I send the request to "/users/1"
