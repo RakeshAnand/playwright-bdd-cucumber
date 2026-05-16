@@ -34,5 +34,17 @@
     "mobile": "9988776655",
     "email": "ravi.kumar@example.com",
     "password": "raviPass789"
+  },
+  "customer4": {
+    "name": "Anand Mahindra",
+    "gender": "male",
+    "dob": "2000-01-15",
+    "address": "Mahaveer",
+    "city": "Rourkela",
+    "state": "odisha",
+    "pin": "769002",
+    "mobile": "9876543210",
+    "email": "anand@email.com",
+    "password": "anand"
   }
 }

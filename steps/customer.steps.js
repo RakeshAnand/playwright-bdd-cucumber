@@ -1,6 +1,6 @@
 import { createBdd } from 'playwright-bdd';
 import { test } from '../fixtures/baseTest.js'; // 1. Import your custom test fixture
-import customers from '../data/customers.json' assert { type: 'json' }; // 2. Import your data
+import customers from '../test-data/customers.json' assert { type: 'json' }; // 2. Import your data
 
 const { Given, When, Then } = createBdd(test); // 3. Pass 'test' to createBdd
 
