@@ -9,20 +9,15 @@ import customersData from '../test-data/customers.json' assert { type: 'json' };
 
 const { Given, When, Then } = createBdd(test);
 
-Given('I navigate to the Edit Customer page', async ({ page }) => {
-  const editCustomerPage = new EditCustomerPage(page);
-  await editCustomerPage.goto();
-});
-
-When('I am on the Edit Customer page', async ({ page }) => {
-  const editCustomerPage = new EditCustomerPage(page);
-  await editCustomerPage.goto();
+Then('I should be on the {string} page', async function (expectedUrl) {
+  const currentUrl = this.page.url();
+  expect(currentUrl).toContain(expectedUrl);
 });
 
 When('I enter Customer ID {string} and submit the form', async ({ page }, customerId) => {
   const editCustomerPage = new EditCustomerPage(page);
   await editCustomerPage.enterCustomerId(customerId);
-  await editCustomerPage.submitForm();   // ✅ click the submit button
+  await editCustomerPage.submitForm();   
 });
 
 When('I print the customer details', async ({ page }) => {

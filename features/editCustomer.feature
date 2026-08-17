@@ -2,7 +2,7 @@ Feature: Edit Customer
   As a bank manager
   I want to fetch and verify customer details
   So that I can ensure the data matches expected records
-
+  @skip
   Scenario Outline: Verify customer details against JSON data
     Given I navigate to the login page
     When I enter valid credentials

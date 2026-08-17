@@ -7,6 +7,16 @@ export class CustomerPage {
   constructor(page) {
     this.page = page;
 
+    // CSS selector
+    this.topNavLinks = page.locator("ul.nav.navbar-nav li a");
+
+    // XPath alternative
+    this.topNavLinks = page.locator("//ul[@class='nav navbar-nav']/li/a");
+
+    // Locator for left navigation pane links
+    // New: left navigation pane
+    this.leftNavLinks = page.locator("ul.menusubnav li a");
+
     // Locators
     this.customerNameInput = page.locator('input[name="name"]');
     this.genderMaleRadio = page.locator('input[value="m"]');
@@ -20,6 +30,13 @@ export class CustomerPage {
     this.emailInput = page.locator('input[name="emailid"]');
     this.passwordInput = page.locator('input[name="password"]');
     this.submitButton = page.locator('input[name="sub"]');
+  }
+
+  async getLeftNavTexts() {
+    return await this.leftNavLinks.allTextContents();
+  }
+  async getTopLeftNavTexts() {
+    return await this.topNavLinks.allTextContents();
   }
 
   async goto() {
@@ -41,7 +58,7 @@ export class CustomerPage {
 
   async enterDOB(dob) {
     // Note: Some browsers/sites require the date format yyyy-mm-dd for input[type="date"]
-    await this.dobInput.fill(dob); 
+    await this.dobInput.fill(dob);
   }
 
   async enterAddress(address) {

@@ -1,7 +1,11 @@
-Feature: Add New Customer
-  As a bank manager
-  I want to add new customers
-  So that they can access banking services
+Feature: Customer Management
+  This feature covers login and adding new customers.
+  Scenario: Print all left navigation pane links
+    Given I navigate to the login page
+    When I enter valid credentials
+    Then I should see the dashboard
+    Then I fetch and print all items from the left navigation pane
+
   @skip
   @smoke
   Scenario Outline: Add multiple customers
@@ -15,6 +19,6 @@ Feature: Add New Customer
 
     Examples:
       | customerKey |
-#| customer1   |
+      | customer1   |
 #| customer2   |
 #| customer3   |

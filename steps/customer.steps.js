@@ -37,3 +37,10 @@ Then('the customer should be added successfully', async ({ page }) => {
   const successMessage = page.locator('p.heading3');
   await expect(successMessage).toContainText('Customer Registered Successfully!!!');
 });
+
+Then('I fetch and print all items from the left navigation pane', async ({ customerPage }) => {
+  const navItems = await customerPage.getTopLeftNavTexts();
+  for (const item of navItems) {
+    console.log(`Left Nav Item: ${item}`);
+  }
+});
