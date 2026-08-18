@@ -14,6 +14,12 @@ jobs:
   test:
     runs-on: ubuntu-24.04
 
+    env:
+      BASE_URL: https://demo.guru99.com/V4
+      CUSTOMER_URL: https://demo.guru99.com/V4/manager/addcustomerpage.php
+      LOGIN_USERNAME: mngr665243
+      PASSWORD: bUsAsYp
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
